@@ -23,7 +23,7 @@ class ArchitectureTest {
     }
 
     @Test
-    @DisplayName("Controller 클래스의 이름은 'Controller'로 끝나야 한다.")
+    @DisplayName("Controller 패키지 내의 클래스의 이름은 'Controller'로 끝나야 한다.")
     void controllersShouldBeNamedCorrectly() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().resideInAPackage("..controller..")
@@ -34,7 +34,7 @@ class ArchitectureTest {
     }
 
     @Test
-    @DisplayName("서비스 클래스의 이름은 'Service'로 끝나야 한다.")
+    @DisplayName("서비스 패키지 내의 클래스의 이름은 'Service'로 끝나야 한다.")
     void servicesShouldBeNamedCorrectly() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().resideInAPackage("..service..")
@@ -45,7 +45,7 @@ class ArchitectureTest {
     }
 
     @Test
-    @DisplayName("리포지토리 클래스의 이름은 'Repository'로 끝나야 한다.")
+    @DisplayName("리포지토리 패키지 내의 클래스의 이름은 'Repository'로 끝나야 한다.")
     void repositoriesShouldBeNamedCorrectly() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().resideInAPackage("..repository..")
@@ -68,13 +68,12 @@ class ArchitectureTest {
     }
 
     @Test
-    @DisplayName("컨트롤러는 필드 인젝션을 사용하지 않아야 한다.")
-    void controllersShouldNotUseFieldInjection() {
+    @DisplayName("모든 클래스는 필드 인젝션을 사용하지 않아야 한다.")
+    void allClassesShouldNotUseFieldInjection() {
         ArchRule rule = ArchRuleDefinition.fields()
-                .that().areDeclaredInClassesThat().resideInAPackage("..controller..")
+                .that().areDeclaredInClassesThat().resideInAPackage("..")
                 .should().notBeAnnotatedWith(Autowired.class)
                 .allowEmptyShould(true);  // 빈 결과 허용
-
 
         rule.check(javaClasses);
     }
